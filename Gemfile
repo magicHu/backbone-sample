@@ -22,6 +22,14 @@ end
 
 gem 'jquery-rails'
 
+gem 'rails-backbone'
+
+group :development do
+	gem "quiet_assets", ">= 1.0.1"
+	gem "better_errors", ">= 0.2.0"
+	gem "binding_of_caller", ">= 0.6.8"
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -1,4 +1,10 @@
 BackboneSample::Application.routes.draw do
+  get "todo/index"
+
+  get "hello/index"
+
+  get "hello_world/index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +54,7 @@ BackboneSample::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'todos#index'
 
   # See how all your routes lay out with "rake routes"
 
