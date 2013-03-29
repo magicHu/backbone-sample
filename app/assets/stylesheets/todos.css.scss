@@ -1,0 +1,30 @@
+// Place all the styles related to the todos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "compass/utilities";
+
+#todoapp {
+  margin: 0 auto;
+  width: 500px;
+  background-color: #eee;
+  padding: 20px;
+}
+
+#new-todo {
+  width: 90%;
+}
+
+#todos {
+  @include no-bullets;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+
+.todo {
+  .title {
+    padding-left: 20px;
+  }
+}

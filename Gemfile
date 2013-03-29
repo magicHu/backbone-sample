@@ -13,6 +13,10 @@ gem 'sqlite3'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  
+  gem 'compass-rails'
+  gem 'bootstrap-sass', '~> 2.3.1.0'
+  gem 'font-awesome-sass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -28,6 +32,11 @@ group :development do
 	gem "quiet_assets", ">= 1.0.1"
 	gem "better_errors", ">= 0.2.0"
 	gem "binding_of_caller", ">= 0.6.8"
+
+  gem 'guard-livereload'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
 end
 
 # To use ActiveModel has_secure_password

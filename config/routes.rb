@@ -1,4 +1,6 @@
 BackboneSample::Application.routes.draw do
+  get "todos/index"
+
   get "todo/index"
 
   get "hello/index"
