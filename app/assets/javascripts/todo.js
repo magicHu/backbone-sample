@@ -17,6 +17,10 @@ $(function() {
 		tagName: "li",
 		template: _.template($("#todo-template").html()),
 
+		events: {
+			"click .close": "removeTodo"
+		},
+
 		initialize: function() {
 			this.render();
 		},
@@ -24,7 +28,12 @@ $(function() {
 		render: function() {
 			this.$el.html(this.template(this.model.toJSON()));
 			return this;
+		},
+
+		removeTodo: function() {
+			Todos.remove(this.model);
 		}
+
 	});
 
 	var AppView = Backbone.View.extend({
@@ -38,7 +47,8 @@ $(function() {
     },
 
 		events: {
-			"keypress #new-todo": "createOnEnter"
+			"keypress #new-todo": "createOnEnter",
+			"click todo.close": "removeTodo"
 		},
 
 		createOnEnter: function() {
@@ -51,6 +61,10 @@ $(function() {
 			var todoView = new TodoView({model: todo})
 			this.todolist.append(todoView.render().el);
 			this.input.val("");
+		},
+
+		removeTodo: function() {
+			
 		}
 	});
 
