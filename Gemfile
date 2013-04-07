@@ -26,7 +26,8 @@ end
 
 gem 'jquery-rails'
 
-gem 'rails-backbone'
+#gem 'rails-backbone'
+gem 'backbone-on-rails'
 
 group :development do
 	gem "quiet_assets", ">= 1.0.1"

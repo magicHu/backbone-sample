@@ -1,4 +1,7 @@
 BackboneSample::Application.routes.draw do
+  resources :posts
+
+
   get "todos/index"
 
   get "todo/index"
