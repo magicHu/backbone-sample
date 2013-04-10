@@ -17,7 +17,9 @@ $(function() {
   var TodoList = Backbone.Collection.extend({
     model: Todo, 
 
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+    //localStorage: new Backbone.LocalStorage("todos-backbone"),
+    url: '/todos',
+
 
     done: function() {
       return this.where({done: true});
