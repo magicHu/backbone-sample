@@ -1,2 +1,12 @@
 @import "bootstrap";
-@import "font-awesome"
+@import "font-awesome";
+
+body {
+  width: 600px;
+  margin: 0 auto;
+  background-color: #ccc;
+}
+
+.ps {
+  margin: 30px 0;
+}

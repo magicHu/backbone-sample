@@ -1,0 +1,70 @@
+$(function() {
+  var Item = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        part1: "hello",
+        part2: "world",
+        count: 0
+      }
+    }
+  });
+
+  var ItemList = Backbone.Collection.extend({
+    model: Item,
+
+    nextCount: function() {
+      if(this.length == 0) return 1;
+      return this.last().get("count") + 1;
+    }
+  });
+
+  var Items = new ItemList;
+
+  var ItemView = Backbone.View.extend({
+    tagName: "li",
+    template: _.template($("#item-template").html()),
+
+    events: {
+      "click .remove": "removeItem"
+    },
+
+    initialize: function() {
+      this.listenTo(this.model, 'destroy', this.remove);
+    },
+
+    render: function() {
+      $(this.el).html(this.template(this.model.toJSON()));
+      return this;
+    },
+
+    removeItem: function() {
+      this.model.destroy();
+    }
+  });
+
+  var ListView = Backbone.View.extend({
+    el: $("body"),
+
+    events: {
+      "click #add": "addItem"
+    },
+
+    initialize: function() {
+      this.count = 0;
+
+      this.listenTo(Items, "add", this.appendItem);
+      //this.render();
+    },
+
+    addItem: function() {
+      Items.add({count: Items.nextCount()});
+    },
+
+    appendItem: function(item) {
+      var itemView = new ItemView({model: item});
+      $("#items").append(itemView.render().el);
+    }
+  });
+
+  var list = new ListView;
+});

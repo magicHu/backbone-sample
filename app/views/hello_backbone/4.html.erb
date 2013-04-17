@@ -1,0 +1,21 @@
+<div>
+  <a href="/hello_backbone/3" class="btn pull-left">
+    <i class="icon-arrow-left icon-2x"></i>
+  </a>
+  <h1 style="margin: 200px;">Step 4</h1>
+</div>
+
+<div id="hello-backbone">
+  <input type="text" id="newContent" />
+  <button id="add" class="btn btn-success">Add Item</button>
+
+  <ul></ul>
+</div>
+
+
+<script type="text/template" id="item-template">
+  <div class="alert alert-success">
+    <%%= count %>. <%%= content %>
+    <a href="#" class="closeMe icon-2x pull-right"><i class="icon-remove-sign"></i></a>
+  </div>
+</script>
