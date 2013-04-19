@@ -10,3 +10,7 @@ body {
 .ps {
   margin: 30px 0;
 }
+
+#item-nav li.done {
+  text-decoration: line-through;
+}

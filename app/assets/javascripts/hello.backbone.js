@@ -13,7 +13,6 @@ $(function() {
     });
 
     var listView = new ListView;
-
   }
 });
 
@@ -104,7 +103,14 @@ $(function() {
     var Item = Backbone.Model.extend({
       defaults: function(){
         return {
-          count: itemList.count()
+          count: itemList.count(), 
+          done: false
+        }
+      }, 
+
+      validate: function(attrs, options) {
+        if(!attrs.content) {
+          return "must be input content."
         }
       }
     });
@@ -115,6 +121,14 @@ $(function() {
       count: function() {
         if(!this.length) return 1;
         return this.last().get('count') + 1;
+      },
+
+      done: function() {
+        return this.where({done: true});
+      },
+
+      remaining: function() {
+        return this.without.apply(this, this.done());
       }
     });
 
@@ -125,20 +139,28 @@ $(function() {
       template: _.template($('#item-template').html()),
 
       events: {
-        'click .closeMe': "destroyItem"
+        'click .closeMe': "destroyItem",
+        'click .toggleDone': "toggleDone"
       },
 
       initialize: function() {
         this.listenTo(this.model, "destroy", this.remove);
+        this.listenTo(this.model, "change", this.render);
       },
 
       render: function() {
         $(this.el).html(this.template(this.model.toJSON()));
+        $(this.el).toggleClass('done', this.model.get('done'));
+        this.$('.toggleDone').attr("checked", this.model.get('done'));
         return this;
       },
 
       destroyItem: function() {
         this.model.destroy();
+      },
+
+      toggleDone: function() {
+        this.model.set("done", !this.model.get('done'));
       }
     });
 
@@ -151,11 +173,35 @@ $(function() {
 
       initialize: function() {
         this.listenTo(itemList, "add", this.appendItem);
+        this.listenTo(itemList, "all", this.render);
+
+        this.leftStats = $('#left-stats');
+        this.completeStats = $('#complete-stats');
+        this.errorMsg = $('#errorMsg');
+
+        this.render();
+      },
+
+      render: function() {
+        if(itemList.length <= 0) {
+          this.leftStats.hide();
+          this.completeStats.hide();
+        } else {
+          this.leftStats.html(itemList.remaining().length + " items left").show();
+          this.completeStats.html(itemList.done().length + " items complete").show();
+        }
+
+        this.errorMsg.hide();
       },
 
       addItem: function() {
         var content = $('#newContent').val();
-        itemList.add({content: content});
+
+        var item = new Item();
+        item.on("invalid", this.showError, this);
+        if(item.set({"content": content}, {validate: true})) {
+          itemList.add(item);
+        }
 
         $('#newContent').val('');
       },
@@ -163,6 +209,10 @@ $(function() {
       appendItem: function(item) {
         var itemView = new ItemView({model: item});
         $('ul', this.el).append(itemView.render().el);
+      },
+
+      showError: function(model, error) {
+        this.errorMsg.html(error).show();
       }
     });
 

@@ -6,14 +6,21 @@
 </div>
 
 <div id="hello-backbone">
+  <div class="alert alert-error" id="errorMsg"></div>
+
   <input type="text" id="newContent" />
   <button id="add" class="btn btn-success">Add Item</button>
 
-  <ul></ul>
+  <ul class="nav nav-tabs nav-stacked" id="item-nav"></ul>
 </div>
 
+<div>
+  <span class="badge badge-info" id="left-stats"></span>
+  <span class="badge badge-info" id="complete-stats"></span>
+</div>
 
 <script type="text/template" id="item-template">
+  <input type="checkbox" class="pull-left toggleDone" />
   <div class="alert alert-success">
     <%%= count %>. <%%= content %>
     <a href="#" class="closeMe icon-2x pull-right"><i class="icon-remove-sign"></i></a>
